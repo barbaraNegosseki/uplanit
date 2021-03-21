@@ -30,22 +30,8 @@ create table up_user_type_subscription (
   foreign key up_usr_type_name_fk (up_usr_type_name) references up_user_type (up_usr_type_name)
 );
 
-insert into up_users (
-  usr_usr_name, 
-  usr_usr_surname,
-  usr_usr_email,
-  usr_usr_birthday,
-  usr_usr_password,
-  usr_usr_ocupation,
-  usr_usr_username)
-    values (
-      'Barbara',
-      'Negosseki',
-      'barbara@gmail.com',
-      '07-10-1997',
-      'pass123',
-      'Estudante',
-      'bnegosseki');
+insert into up_users (usr_usr_name, usr_usr_surname, usr_usr_email, usr_usr_birthday, usr_usr_password, usr_usr_ocupation, usr_usr_username)
+    values ('Barbara','Negosseki','barbara@gmail.com','07-10-1997','pass123','Estudante','bnegosseki');
 
 insert into up_user_type (up_usr_type_name)
   values ('SUBSCRIBED');
