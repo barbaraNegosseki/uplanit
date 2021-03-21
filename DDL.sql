@@ -4,7 +4,7 @@ use uplanit;
 
 create user 'bnegosseki'@'localhost' identified by 'pass123';
 
-grant select, insert, delete, update on uplanit.* to user@'bnegosseki';
+grant select, insert, delete, update on uplanit.* to bnegosseki@'localhost';
 
 create table up_users (
   usr_usr_name varchar(100) not null,
