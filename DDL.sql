@@ -48,7 +48,7 @@ insert into up_users (
       'bnegosseki');
 
 insert into up_user_type (up_usr_type_name)
-  values ('TRIAL', 'SUBSCRIBED');
+  values ('SUBSCRIBED');
 
 insert into up_user_type_subscription (usr_usr_username, up_usr_type_name) 
   values ('bnegosseki', 'SUBSCRIBED');
