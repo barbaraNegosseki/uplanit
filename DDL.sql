@@ -17,24 +17,27 @@ create table up_users (
   primary key (usr_username)
 );
 
-create table up_user_type (
-  up_usr_type_name varchar(50) not null,
-  primary key (up_usr_type_name)
+create table up_subscription (
+  up_subscription_name varchar(50) not null,
+  primary key (up_subscription_name)
 );
 
-create table up_user_type_subscription (
+create table up_user_subscription (
   usr_username varchar(50) not null,
-  up_usr_type_name varchar(50) not null,
-  primary key (usr_username, up_usr_type_name),
+  up_subscription_name varchar(50) not null,
+  primary key (usr_username, up_subscription_name),
   foreign key usr_username_fk (usr_username) references up_users (usr_username),
-  foreign key up_usr_type_name_fk (up_usr_type_name) references up_user_type (up_usr_type_name)
+  foreign key up_subscription_name_fk (up_subscription_name) references up_subscription (up_subscription_name)
 );
 
 insert into up_users (usr_name, usr_surname, usr_email, usr_birthday, usr_password, usr_ocupation, usr_username)
     values ('Barbara','Negosseki','barbara@gmail.com','07-10-1997','pass123','Estudante','bnegosseki');
 
-insert into up_user_type (up_usr_type_name)
+insert into up_subscription (up_subscription_name)
   values ('SUBSCRIBED');
 
-insert into up_user_type_subscription (usr_username, up_usr_type_name) 
+insert into up_subscription (up_subscription_name)
+  values ('TRIAL');
+
+insert into up_user_subscription (usr_username, up_subscription_name) 
   values ('bnegosseki', 'SUBSCRIBED');
