@@ -1,15 +1,15 @@
 package br.gov.sp.fatec.uplanitspringbootapp.entity;
 
 import javax.persistence.Entity;
-//import javax.persistence.FetchType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-//import java.util.Set;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.JoinTable;
-//import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +17,6 @@ import javax.persistence.Table;
 public class User {
 
     //#region variáveis
-
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usr_username")
@@ -40,22 +39,17 @@ public class User {
 
     @Column(name = "usr_ocupation")
     private String ocupation;
-
-    /*
-
+  
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "uau_usuario_autorizacao",
-        joinColumns = { @JoinColumn(name = "usr_id") },
-        inverseJoinColumns = { @JoinColumn(name = "aut_id") }
+    @JoinTable(name = "up_user_subscription",
+        joinColumns = { @JoinColumn(name = "usr_username") },
+        inverseJoinColumns = { @JoinColumn(name = "up_subscription_name") }
     )
-
-    */
-    //private Set<Autorizacao> autorizacoes;
-
+    
+    private Set<Subscription> subscriptions;
     //#endregion
 
     //#region gets and setters
-
     public String getUsername(){
         return this.username;
     }
@@ -111,16 +105,13 @@ public class User {
     public void setOcupation(String ocupation){
         this.ocupation = ocupation;
     }
-
-    /*
-    public Set<Autorizacao> getAutorizacoes(){
-        return this.autorizacoes;
-    }
-
-    public void setAutorizacoes(Set<Autorizacao> autorizacoes){
-        this.autorizacoes = autorizacoes;
-    }
-*/
-    //#endregion
     
+    public Set<Subscription> getSubscriptions(){
+        return this.subscriptions;
+    }
+
+    public void setSubscriptions(Set<Subscription> subscriptions){
+        this.subscriptions = subscriptions;
+    }
+    //#endregion    
 }
