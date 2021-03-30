@@ -23,7 +23,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     @Transactional
     public User createUser(String name, String surname, String email, String birthday, String password, String ocupation, String username, String subscription) {
-        Subscription sub = subRepo.findByName(subscription);
+        Subscription sub = subRepo.findBySubscription(subscription);
 
         if(sub == null){
             sub = new Subscription();

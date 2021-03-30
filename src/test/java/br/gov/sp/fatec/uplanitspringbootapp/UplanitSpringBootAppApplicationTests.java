@@ -14,6 +14,7 @@ import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.User;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.SubscriptionRepository;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.UserRepository;
+import br.gov.sp.fatec.uplanitspringbootapp.service.SegurancaService;
 
 @SpringBootTest
 @Transactional
@@ -25,6 +26,9 @@ class UplanitSpringBootAppApplicationTests {
 
     @Autowired
     private SubscriptionRepository subRepo;
+
+    @Autowired
+    private SegurancaService segService;
 
 	@Test
 	void contextLoads() {
@@ -70,9 +74,7 @@ class UplanitSpringBootAppApplicationTests {
 
         subRepo.save(sub);
         assertNotNull(sub.getUser().iterator().next().getUsername());
-    }
-
-    //
+    }    
 
     @Test
     void testaBuscaUsuarioNomeContains(){
@@ -92,9 +94,29 @@ class UplanitSpringBootAppApplicationTests {
         assertNotNull(user);
     }
 
+    //
+
     @Test
-    void testaBuscaUsuarioNomeAutorizacao(){
-        List<User> user = userRepo.findBySubName("SUBSCRIBED");
-        assertFalse(user.isEmpty());
+    void testaBuscaUsuarioNomeSenhaQuery(){
+        User user = userRepo.buscaUsuarioPorNamePassword("Barbara", "pass123");
+        assertNotNull(user);
     }
+
+    @Test
+    void testaBuscaUsuarioNomeAutorizacaoQuery(){
+        List<User> users = userRepo.buscaPorNameSubscriptions("SUBSCRIBED");
+        assertFalse(users.isEmpty());
+    }
+
+    @Test
+    void testaBuscaUsuarioNameQuery(){
+        User user = userRepo.buscaUsuarioPorName("Barbara");
+        assertNotNull(user);
+    }
+
+    @Test
+    void testaServivoCriaUsuario() {
+        User user = segService.createUser("João", "Silva", "joao.silva@gmail.com", "09-12-1996", "pass123", "Jornalista", "jsilva", "TRIAL");
+        assertNotNull(user);
+    }    
 }

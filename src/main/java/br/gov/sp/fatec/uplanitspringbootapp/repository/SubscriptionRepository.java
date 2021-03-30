@@ -5,6 +5,6 @@ import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, String>{
 
-    public Subscription findByName(String subscription);   
+    public Subscription findBySubscription(String subscription);   
 
 }

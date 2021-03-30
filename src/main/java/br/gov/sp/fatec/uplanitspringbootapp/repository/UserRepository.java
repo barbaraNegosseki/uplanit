@@ -14,17 +14,13 @@ public interface UserRepository extends JpaRepository<User, String>{
 
     public User findByNameAndPassword(String name, String password);
 
-    public List<User> findBySubName(String subscription);
-
-    /*
-
     @Query("select u from User u where u.name = ?1 and u.password = ?2")
     public User buscaUsuarioPorNamePassword(String name, String password);
 
-    @Query("select u from User u inner join u.subscriptions a where a.name = ?1")
+    @Query("select u from User u inner join u.subscriptions a where a.subscription = ?1")
     public List<User> buscaPorNameSubscriptions(String subscriptions);
 
-    @Query("select u from User u where u.name = ?1 ")
-    public User buscaUsuarioPorName(String name);*/
+    @Query("select u from User u where u.name = ?1")
+    public User buscaUsuarioPorName(String name);
     
 }
