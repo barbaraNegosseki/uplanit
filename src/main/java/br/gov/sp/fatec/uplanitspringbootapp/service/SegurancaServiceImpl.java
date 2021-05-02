@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.uplanitspringbootapp.service;
 
 import java.util.HashSet;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -45,4 +46,9 @@ public class SegurancaServiceImpl implements SegurancaService {
 
         return user;
     }           
+
+    @Override
+    public List<User> getAllUsers(){
+        return userRepo.findAll();
+    }
 }
