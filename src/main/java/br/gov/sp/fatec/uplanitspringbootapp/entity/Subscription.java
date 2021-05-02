@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "up_subscription")
 public class Subscription {
@@ -17,6 +19,7 @@ public class Subscription {
     private String subscription;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscriptions")
+    @JsonIgnore
     private Set<User> users;
 
     public String getSubscriptions(){
