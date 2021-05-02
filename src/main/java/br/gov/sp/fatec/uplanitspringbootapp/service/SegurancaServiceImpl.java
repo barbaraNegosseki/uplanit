@@ -70,4 +70,14 @@ public class SegurancaServiceImpl implements SegurancaService {
         }
         throw new RuntimeException("Usuário não existe!");
     }    
+
+    @Override
+    public Subscription getBySubName(String name){
+        Subscription subscription = subRepo.findBySubscription(name);
+        
+        if(subscription != null){
+            return subscription;
+        }
+        throw new RuntimeException("Inscrição não existe!");
+    }
 }

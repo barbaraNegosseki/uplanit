@@ -2,6 +2,7 @@ package br.gov.sp.fatec.uplanitspringbootapp.service;
 
 import java.util.List;
 
+import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.User;
 
 public interface SegurancaService {
@@ -13,5 +14,7 @@ public interface SegurancaService {
     public User getUsername(String username);
 
     public User getUserName(String name);
+
+    public Subscription getBySubName(String name);
 
 }

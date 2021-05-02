@@ -8,18 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.uplanitspringbootapp.controller.View;
+
 
 @Entity
 @Table(name = "up_subscription")
 public class Subscription {
-
+    
     @Id
+    @JsonView({View.User.class, View.Subscription.class})
     @Column(name = "up_subscription_name")
     private String subscription;
     
+    @JsonView(View.Subscription.class)
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscriptions")
-    @JsonIgnore
     private Set<User> users;
 
     public String getSubscriptions(){

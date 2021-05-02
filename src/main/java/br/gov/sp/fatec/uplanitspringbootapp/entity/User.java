@@ -8,10 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.uplanitspringbootapp.controller.View;
 
 @Entity
 @Table(name = "up_users")
@@ -19,9 +20,11 @@ public class User {
 
     //#region variáveis
     @Id
+    @JsonView(View.UserComplete.class)
     @Column(name = "usr_username")
     private String username;
 
+    @JsonView({View.User.class, View.Subscription.class})
     @Column(name = "usr_name")
     private String name;
     
@@ -40,13 +43,12 @@ public class User {
     @Column(name = "usr_ocupation")
     private String ocupation;
 
-     
+    @JsonView(View.User.class)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "up_user_subscription",
         joinColumns = { @JoinColumn(name = "usr_username") },
         inverseJoinColumns = { @JoinColumn(name = "up_subscription_name") }
     )
-    @JsonIgnore 
     
     private Set<Subscription> subscriptions;
     //#endregion
