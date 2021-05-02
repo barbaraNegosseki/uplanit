@@ -12,7 +12,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.User;
-import br.gov.sp.fatec.uplanitspringbootapp.repository.SubscriptionRepository;
+//import br.gov.sp.fatec.uplanitspringbootapp.repository.SubscriptionRepository;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.UserRepository;
 import br.gov.sp.fatec.uplanitspringbootapp.service.SegurancaService;
 
@@ -24,8 +24,8 @@ class UplanitSpringBootAppApplicationTests {
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
-    private SubscriptionRepository subRepo;
+    //@Autowired
+    //private SubscriptionRepository subRepo;
 
     @Autowired
     private SegurancaService segService;
@@ -55,26 +55,26 @@ class UplanitSpringBootAppApplicationTests {
         assertNotNull(user.getUsername());
     }
 
-    @Test
-    void userSubscriptionTest() {
-        User user = new User();
-        user.setName("Mariana");
-        user.setSurname("Santos");
-        user.setEmail("msantos@gmail.com");
-        user.setBirthday("21-06-1998");
-        user.setPassword("pass123");
-        user.setOcupation("Bibliotecária");
-        user.setUsername("msantos");
-        userRepo.save(user);
+    // @Test
+    // void userSubscriptionTest() {
+    //     User user = new User();
+    //     user.setName("Mariana");
+    //     user.setSurname("Santos");
+    //     user.setEmail("msantos@gmail.com");
+    //     user.setBirthday("21-06-1998");
+    //     user.setPassword("pass123");
+    //     user.setOcupation("Bibliotecária");
+    //     user.setUsername("msantos");
+    //     userRepo.save(user);
 
-        Subscription sub = new Subscription();
-        sub.setSubscriptions("TRIAL");
-        sub.setUser(new HashSet<User>());
-        sub.getUser().add(user);
+    //     Subscription sub = new Subscription();
+    //     sub.setSubscriptions("TRIAL");
+    //     sub.setUser(new HashSet<User>());
+    //     sub.getUser().add(user);
 
-        subRepo.save(sub);
-        assertNotNull(sub.getUser().iterator().next().getUsername());
-    }    
+    //     subRepo.save(sub);
+    //     assertNotNull(sub.getUser().iterator().next().getUsername());
+    // }    
 
     @Test
     void testaBuscaUsuarioNomeContains(){

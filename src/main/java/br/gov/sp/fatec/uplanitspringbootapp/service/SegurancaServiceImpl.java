@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.User;
+import br.gov.sp.fatec.uplanitspringbootapp.exception.RegistroNaoEncontradoException;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.SubscriptionRepository;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.UserRepository;
 
@@ -59,7 +60,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         if(userOp.isPresent()){
             return userOp.get();
         }
-        throw new RuntimeException("Usuário com esse username não encontrado!");
+        throw new RegistroNaoEncontradoException("Usuário com esse username não encontrado!");
     }
 
     @Override
@@ -68,7 +69,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         if(user != null){
             return user;
         }
-        throw new RuntimeException("Usuário não existe!");
+        throw new RegistroNaoEncontradoException("Usuário não existe!");
     }    
 
     @Override
@@ -78,6 +79,6 @@ public class SegurancaServiceImpl implements SegurancaService {
         if(subscription != null){
             return subscription;
         }
-        throw new RuntimeException("Inscrição não existe!");
+        throw new RegistroNaoEncontradoException("Inscrição não existe!");
     }
 }

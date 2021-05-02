@@ -5,6 +5,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.User;
@@ -42,10 +46,17 @@ public class UserController {
         return segurancaService.getUserName(name);
     }
 
-    @JsonView(View.User.class)
+    //@JsonView(View.User.class)
     @PostMapping
-    public User signUpNewUser(@RequestBody User user){
-        return segurancaService.createUser(user.getName(), user.getSurname(), user.getEmail(), user.getBirthday(), user.getPassword(), user.getOcupation(), user.getUsername(), "TRIAL");
+    public ResponseEntity<User> signUpNewUser(@RequestBody User user,
+            UriComponentsBuilder uriComponentsBuilder){   
+        user = segurancaService.createUser(user.getName(), user.getSurname(), user.getEmail(), user.getBirthday(), user.getPassword(), user.getOcupation(), user.getUsername(), "TRIAL");
+        HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setLocation(
+                uriComponentsBuilder.path(
+                    "/" + user.getUsername()).build().toUri());
+
+        return new ResponseEntity<User>(user, responseHeaders, HttpStatus.CREATED);
     }
 
     @JsonView(View.Subscription.class)
