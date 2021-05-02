@@ -35,13 +35,13 @@ public class SegurancaServiceImpl implements SegurancaService {
         }
 
         User user = new User();
-        user.setName("Mariana");
-        user.setSurname("Santos");
-        user.setEmail("msantos@gmail.com");
-        user.setBirthday("21-06-1998");
-        user.setPassword("pass123");
-        user.setOcupation("Bibliotecária");
-        user.setUsername("msantos");
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setBirthday(birthday);
+        user.setPassword(password);
+        user.setOcupation(ocupation);
+        user.setUsername(username);
         user.setSubscriptions(new HashSet<Subscription>());
         user.getSubscriptions().add(sub);
         userRepo.save(user);
