@@ -10,4 +10,8 @@ public interface SegurancaService {
     
     public List<User> getAllUsers();
 
+    public User getUsername(String username);
+
+    public User getUserName(String name);
+
 }

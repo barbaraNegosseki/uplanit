@@ -17,7 +17,7 @@ public class Subscription {
     @Id
     @Column(name = "up_subscription_name")
     private String subscription;
-
+    
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscriptions")
     @JsonIgnore
     private Set<User> users;

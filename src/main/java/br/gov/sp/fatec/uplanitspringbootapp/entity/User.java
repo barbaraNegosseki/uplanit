@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "up_users")
@@ -36,16 +39,18 @@ public class User {
 
     @Column(name = "usr_ocupation")
     private String ocupation;
-  
+
+     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "up_user_subscription",
         joinColumns = { @JoinColumn(name = "usr_username") },
         inverseJoinColumns = { @JoinColumn(name = "up_subscription_name") }
     )
+    @JsonIgnore 
     
     private Set<Subscription> subscriptions;
     //#endregion
-
+    
     //#region gets and setters
     public String getUsername(){
         return this.username;
