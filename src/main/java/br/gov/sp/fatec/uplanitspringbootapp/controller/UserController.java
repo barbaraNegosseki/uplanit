@@ -82,5 +82,5 @@ public class UserController {
             responHeaders.setLocation(uriComponentsBuilder.path(
                 "/user/" + user.getUsername()).build().toUri());
             return new ResponseEntity<User>(user, responHeaders, HttpStatus.CREATED);
-        }
+    }
 }

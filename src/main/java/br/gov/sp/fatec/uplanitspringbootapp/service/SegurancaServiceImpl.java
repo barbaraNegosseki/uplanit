@@ -140,4 +140,29 @@ public class SegurancaServiceImpl implements SegurancaService {
     public List<Tasks> getAllTasks(){
         return taskRepo.findAll();
     }
+
+    //pesquisando pelo id da task
+    @Override
+    public Tasks getTaskById(String taskId){
+        Optional<Tasks> taskOp = taskRepo.findById(taskId);
+        if(taskOp.isPresent()){
+            return taskOp.get();
+        }
+        throw new RegistroNaoEncontradoException("Tarefa não existe!");
+    }
+
+    //atualizando as informações das tasks
+    @Transactional
+    public Tasks updateTaskInfo(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
+
+        Tasks tasks = new Tasks();
+        tasks.setTaskId(taskId);
+        tasks.setTaskName(taskName);
+        tasks.setTaskCheck(taskCheck);
+        tasks.setTaskDateCreated(taskDateCreated);
+        tasks.setTaskDateDue(taskDateDue);
+        taskRepo.save(tasks);
+
+        return tasks;
+    }  
 }

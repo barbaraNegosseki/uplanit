@@ -27,6 +27,9 @@ public interface SegurancaService {
 
     public List<Tasks> getAllTasks();
 
+    public Tasks getTaskById(String taskId);
+
     public Tasks createTask(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue);
 
+    public Tasks updateTaskInfo(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue);
 }
