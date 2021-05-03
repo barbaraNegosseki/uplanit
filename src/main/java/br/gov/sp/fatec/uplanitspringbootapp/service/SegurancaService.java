@@ -32,4 +32,6 @@ public interface SegurancaService {
     public Tasks createTask(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue);
 
     public Tasks updateTaskInfo(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue);
+
+    public Tasks deleteTask(String taskId);
 }

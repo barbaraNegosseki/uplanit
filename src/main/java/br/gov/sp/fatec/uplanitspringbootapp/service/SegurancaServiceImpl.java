@@ -165,4 +165,15 @@ public class SegurancaServiceImpl implements SegurancaService {
 
         return tasks;
     }  
+
+    //deletando pelo id da Task
+    @Override
+    public Tasks deleteTask(String taskId){
+        Optional<Tasks> taskOp = taskRepo.findById(taskId);
+        if(taskOp.isPresent()){
+            taskRepo.deleteById(taskId);
+            return taskOp.get();
+        }
+        throw new RegistroNaoEncontradoException("Tarefa não existe!");
+    }
 }
