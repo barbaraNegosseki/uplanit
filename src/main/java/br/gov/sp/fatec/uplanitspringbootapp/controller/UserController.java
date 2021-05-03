@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,19 +73,14 @@ public class UserController {
         return new ResponseEntity<User>(deleteUser, HttpStatus.OK);
     }
 
-    //
-
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Cliente> deleteCliente(@PathVariable Long id){
-    //     Cliente deleteCliente = segurancaService.deleteCliente(id);
-    //     return new ResponseEntity<Cliente>(deleteCliente, HttpStatus.OK);
-    // }
-
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente, UriComponentsBuilder uriComponentsBuilder) throws Exception {
-    //     cliente = segurancaService.atualizarEmailCliente(cliente.getEmail(), id);
-    //     HttpHeaders responseHeaders = new HttpHeaders();
-    //     responseHeaders.setLocation(uriComponentsBuilder.path("/cliente/" + cliente.getId()).build().toUri());
-    //     return new ResponseEntity<Cliente>(cliente, responseHeaders, HttpStatus.CREATED);
-    // }
+    @PutMapping(path = "/{username}")
+    public ResponseEntity<User> updateUser(@PathVariable String username, 
+        @RequestBody User user, UriComponentsBuilder uriComponentsBuilder)
+        throws Exception{
+            user = segurancaService.updateUserInfo(user.getName(), user.getSurname(), user.getEmail(), user.getBirthday(), user.getPassword(), user.getUsername(), user.getOcupation());
+            HttpHeaders responHeaders = new HttpHeaders();
+            responHeaders.setLocation(uriComponentsBuilder.path(
+                "/user/" + user.getUsername()).build().toUri());
+            return new ResponseEntity<User>(user, responHeaders, HttpStatus.CREATED);
+        }
 }

@@ -49,6 +49,22 @@ public class SegurancaServiceImpl implements SegurancaService {
         return user;
     }           
 
+    @Transactional
+    public User updateUserInfo(String name, String surname, String email, String birthday, String password, String username, String ocupation) {
+
+        User user = new User();
+        user.setUsername(username);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setBirthday(birthday);
+        user.setPassword(password);
+        user.setOcupation(ocupation);
+        userRepo.save(user);
+
+        return user;
+    }  
+
     //pesquisando todos os usuários
     @Override
     public List<User> getAllUsers(){

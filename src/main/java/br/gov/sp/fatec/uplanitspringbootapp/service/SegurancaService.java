@@ -9,6 +9,8 @@ public interface SegurancaService {
 
     public User createUser(String name, String surname, String email, String birthday, String password, String ocupation, String username, String subscription);
     
+    public User updateUserInfo(String name, String surname, String email, String birthday, String password, String username, String ocupation);
+    
     public List<User> getAllUsers();
 
     public User getUsername(String username);
