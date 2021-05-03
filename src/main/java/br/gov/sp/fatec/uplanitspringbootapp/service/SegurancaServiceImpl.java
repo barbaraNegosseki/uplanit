@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
+import br.gov.sp.fatec.uplanitspringbootapp.entity.Tasks;
 import br.gov.sp.fatec.uplanitspringbootapp.entity.User;
 import br.gov.sp.fatec.uplanitspringbootapp.exception.RegistroNaoEncontradoException;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.SubscriptionRepository;
+import br.gov.sp.fatec.uplanitspringbootapp.repository.TaskRepository;
 import br.gov.sp.fatec.uplanitspringbootapp.repository.UserRepository;
 
 @Service("segurancaService")
@@ -23,6 +25,9 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private TaskRepository taskRepo;
 
     @Transactional
     public User createUser(String name, String surname, String email, String birthday, String password, String ocupation, String username, String subscription) {
@@ -111,5 +116,28 @@ public class SegurancaServiceImpl implements SegurancaService {
             return subscription;
         }
         throw new RegistroNaoEncontradoException("Inscrição não existe!");
+    }
+
+    //
+
+    //inserindo task
+    @Transactional
+    public Tasks createTask(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
+       
+        Tasks tasks = new Tasks();
+        tasks.setTaskId(taskId);
+        tasks.setTaskName(taskName);
+        tasks.setTaskCheck(taskCheck);
+        tasks.setTaskDateCreated(taskDateCreated);
+        tasks.setTaskDateDue(taskDateDue);
+        taskRepo.save(tasks);
+
+        return tasks;
+    } 
+
+    //pesquisando todas as tasks
+    @Override
+    public List<Tasks> getAllTasks(){
+        return taskRepo.findAll();
     }
 }
