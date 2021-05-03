@@ -17,4 +17,6 @@ public interface SegurancaService {
 
     public Subscription getBySubName(String name);
 
+    public User deleteUser(String username);
+
 }

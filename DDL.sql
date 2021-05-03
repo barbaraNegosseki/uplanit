@@ -17,6 +17,15 @@ create table up_users (
   primary key (usr_username)
 );
 
+create table up_tasks (
+  task_id varchar(10) not null, 
+  task_name varchar(250) not null,
+  task_check varchar(50) not null,
+  task_date_created varchar(50) not null,
+  task_date_due varchar(100) not null,
+  primary key (task_id)
+);
+
 create table up_subscription (
   up_subscription_name varchar(50) not null,
   primary key (up_subscription_name)

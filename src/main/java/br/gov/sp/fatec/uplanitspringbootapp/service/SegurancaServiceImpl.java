@@ -49,20 +49,34 @@ public class SegurancaServiceImpl implements SegurancaService {
         return user;
     }           
 
+    //pesquisando todos os usuários
     @Override
     public List<User> getAllUsers(){
         return userRepo.findAll();
     }
 
+    //pesquisando pelo username
     @Override
     public User getUsername(String username){
         Optional<User> userOp = userRepo.findById(username);
         if(userOp.isPresent()){
             return userOp.get();
         }
-        throw new RegistroNaoEncontradoException("Usuário com esse username não encontrado!");
+        throw new RegistroNaoEncontradoException("Usuário não existe!");
     }
 
+    //deletando pelo username
+    @Override
+    public User deleteUser(String username){
+        Optional<User> userOp = userRepo.findById(username);
+        if(userOp.isPresent()){
+            userRepo.deleteById(username);
+            return userOp.get();
+        }
+        throw new RegistroNaoEncontradoException("Usuário não existe!");
+    }
+
+    //pesquisando pelo nome
     @Override
     public User getUserName(String name){
          User user = userRepo.findByName(name);
@@ -72,6 +86,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         throw new RegistroNaoEncontradoException("Usuário não existe!");
     }    
 
+    //pesquisando pelo nome da inscrição
     @Override
     public Subscription getBySubName(String name){
         Subscription subscription = subRepo.findBySubscription(name);

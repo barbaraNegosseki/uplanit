@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,4 +65,26 @@ public class UserController {
     public Subscription getBySubNames(@PathVariable("subscription") String name){
         return segurancaService.getBySubName(name);
     }
+
+    @DeleteMapping(path = "/{username}")
+    public ResponseEntity<User> deleteUser(@PathVariable String username){
+        User deleteUser = segurancaService.deleteUser(username);
+        return new ResponseEntity<User>(deleteUser, HttpStatus.OK);
+    }
+
+    //
+
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<Cliente> deleteCliente(@PathVariable Long id){
+    //     Cliente deleteCliente = segurancaService.deleteCliente(id);
+    //     return new ResponseEntity<Cliente>(deleteCliente, HttpStatus.OK);
+    // }
+
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente, UriComponentsBuilder uriComponentsBuilder) throws Exception {
+    //     cliente = segurancaService.atualizarEmailCliente(cliente.getEmail(), id);
+    //     HttpHeaders responseHeaders = new HttpHeaders();
+    //     responseHeaders.setLocation(uriComponentsBuilder.path("/cliente/" + cliente.getId()).build().toUri());
+    //     return new ResponseEntity<Cliente>(cliente, responseHeaders, HttpStatus.CREATED);
+    // }
 }
