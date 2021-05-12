@@ -32,6 +32,8 @@ public class UserController {
     @Autowired
     private SegurancaService segurancaService;
 
+    @GetMapping
+    @JsonView(View.User.class)
     public List<User> getAllUsers(){
         return segurancaService.getAllUsers();
     }   
