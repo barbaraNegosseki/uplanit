@@ -1,3 +1,6 @@
+drop user 'bnegosseki'@'localhost';
+drop schema uplanit;
+
 create schema uplanit;
 
 use uplanit;
@@ -39,8 +42,8 @@ create table up_user_subscription (
   foreign key up_subscription_name_fk (up_subscription_name) references up_subscription (up_subscription_name)
 );
 
-insert into up_users (usr_name, usr_surname, usr_email, usr_birthday, usr_password, usr_ocupation, usr_username)
-  values ('Admin','01','admin@gmail.com','11-11-1999','admin123','Administrador','admin');
+  insert into up_users (usr_name, usr_surname, usr_email, usr_birthday, usr_password, usr_ocupation, usr_username)
+    values ('Admin','01','admin@gmail.com','11-11-1999','admin123','Administrador','admin');
 
 insert into up_subscription (up_subscription_name)
   values ('SUBSCRIBED');
