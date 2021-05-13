@@ -80,13 +80,14 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando todos os usuários
     @Override
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('SUBSCRIBED')")
     public List<User> getAllUsers(){
         return userRepo.findAll();
     }
 
     //pesquisando pelo username
     @Override
+    @PreAuthorize("isAuthenticated()")
     public User getUsername(String username){
         Optional<User> userOp = userRepo.findById(username);
         if(userOp.isPresent()){
@@ -108,6 +109,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando pelo nome
     @Override
+    @PreAuthorize("isAuthenticated()")
     public User getUserName(String name){
          User user = userRepo.findByName(name);
         if(user != null){
@@ -118,6 +120,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando pelo nome da inscrição
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Subscription getBySubName(String name){
         Subscription subscription = subRepo.findBySubscription(name);
         
