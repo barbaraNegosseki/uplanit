@@ -3,11 +3,15 @@ package br.gov.sp.fatec.uplanitspringbootapp.service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.uplanitspringbootapp.entity.Subscription;
@@ -30,6 +34,9 @@ public class SegurancaServiceImpl implements SegurancaService {
     @Autowired
     private TaskRepository taskRepo;
 
+    @Autowired
+    private PasswordEncoder passEncoder;
+
     @Transactional
     public User createUser(String name, String surname, String email, String birthday, String password, String ocupation, String username, String subscription) {
         Subscription sub = subRepo.findBySubscription(subscription);
@@ -45,7 +52,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         user.setSurname(surname);
         user.setEmail(email);
         user.setBirthday(birthday);
-        user.setPassword(password);
+        user.setPassword(passEncoder.encode(password));
         user.setOcupation(ocupation);
         user.setUsername(username);
         user.setSubscriptions(new HashSet<Subscription>());
@@ -177,5 +184,19 @@ public class SegurancaServiceImpl implements SegurancaService {
             return taskOp.get();
         }
         throw new RegistroNaoEncontradoException("Tarefa não existe!");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findByName(username);
+
+        if(user == null){
+            throw new UsernameNotFoundException("Usuário " + username + " não encontrado!");
+        }
+
+        return org.springframework.security.core.userdetails.User.builder().username(username)
+                    .password(user.getPassword()).authorities(user.getSubscriptions().stream()
+                    .map(Subscription::getSubscriptions).collect(Collectors.toList()).toArray(new String[user
+                    .getSubscriptions().size()])).build();
     }
 }

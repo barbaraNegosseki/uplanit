@@ -49,4 +49,4 @@ insert into up_subscription (up_subscription_name)
   values ('TRIAL');
 
 insert into up_user_subscription (usr_username, up_subscription_name) 
-  values ('bnegosseki', 'SUBSCRIBED');
+  values ('admin', 'SUBSCRIBED');
