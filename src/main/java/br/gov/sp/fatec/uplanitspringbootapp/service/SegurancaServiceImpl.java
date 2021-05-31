@@ -134,10 +134,9 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //inserindo task
     @Transactional
-    public Tasks createTask(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
+    public Tasks createTask(String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
        
         Tasks tasks = new Tasks();
-        tasks.setTaskId(taskId);
         tasks.setTaskName(taskName);
         tasks.setTaskCheck(taskCheck);
         tasks.setTaskDateCreated(taskDateCreated);
@@ -155,7 +154,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando pelo id da task
     @Override
-    public Tasks getTaskById(String taskId){
+    public Tasks getTaskById(Long taskId){
         Optional<Tasks> taskOp = taskRepo.findById(taskId);
         if(taskOp.isPresent()){
             return taskOp.get();
@@ -165,10 +164,9 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //atualizando as informações das tasks
     @Transactional
-    public Tasks updateTaskInfo(String taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
+    public Tasks updateTaskInfo(String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
 
         Tasks tasks = new Tasks();
-        tasks.setTaskId(taskId);
         tasks.setTaskName(taskName);
         tasks.setTaskCheck(taskCheck);
         tasks.setTaskDateCreated(taskDateCreated);
@@ -180,7 +178,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //deletando pelo id da Task
     @Override
-    public Tasks deleteTask(String taskId){
+    public Tasks deleteTask(Long taskId){
         Optional<Tasks> taskOp = taskRepo.findById(taskId);
         if(taskOp.isPresent()){
             taskRepo.deleteById(taskId);

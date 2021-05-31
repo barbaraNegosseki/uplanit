@@ -2,6 +2,8 @@ package br.gov.sp.fatec.uplanitspringbootapp.controller;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class TasksController {
     private SegurancaService segurancaService;
 
     //get
+    @JsonView(View.Tasks.class)
+    @GetMapping
     public List<Tasks> getAllTasks(){
         return segurancaService.getAllTasks();
     }
@@ -37,7 +41,7 @@ public class TasksController {
     //pesquisando tarefa por ID
     @CrossOrigin
     @GetMapping(value = "/{taskId}")
-    public Tasks getTaskById(@PathVariable("taskId") String taskId){
+    public Tasks getTaskById(@PathVariable("taskId") Long taskId){
         return segurancaService.getTaskById(taskId);
     } 
 
@@ -45,7 +49,7 @@ public class TasksController {
     @PostMapping
     public ResponseEntity<Tasks> signUpNewUser(@RequestBody Tasks tasks,
             UriComponentsBuilder uriComponentsBuilder){   
-        tasks = segurancaService.createTask(tasks.getTaskId(), tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
+        tasks = segurancaService.createTask(tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
         HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(
                 uriComponentsBuilder.path(
@@ -59,7 +63,7 @@ public class TasksController {
     public ResponseEntity<Tasks> updateTask(@PathVariable String taskId, 
         @RequestBody Tasks tasks, UriComponentsBuilder uriComponentsBuilder)
         throws Exception{
-            tasks = segurancaService.updateTaskInfo(tasks.getTaskId(), tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
+            tasks = segurancaService.updateTaskInfo(tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
             HttpHeaders responHeaders = new HttpHeaders();
             responHeaders.setLocation(uriComponentsBuilder.path(
                 "/tasks/" + tasks.getTaskId()).build().toUri());
@@ -68,7 +72,7 @@ public class TasksController {
 
     //deletando uma task
     @DeleteMapping(path = "/{taskId}")
-    public ResponseEntity<Tasks> deleteTask(@PathVariable String taskId){
+    public ResponseEntity<Tasks> deleteTask(@PathVariable Long taskId){
         Tasks deleteTask = segurancaService.deleteTask(taskId);
         return new ResponseEntity<Tasks>(deleteTask, HttpStatus.OK);
     }

@@ -2,17 +2,25 @@ package br.gov.sp.fatec.uplanitspringbootapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.uplanitspringbootapp.controller.View;
 
 @Entity
 @Table(name="up_tasks")
 public class Tasks {
-        
-    //TODO jsonview
+    
+    //TODO: Json View
+    @JsonView(View.TasksComplete.class)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
-    private String taskId;
+    private Long taskId;
 
     @Column(name = "task_name")
     private String taskName;
@@ -28,11 +36,11 @@ public class Tasks {
 
     //gets and setters
 
-    public String getTaskId(){
+    public Long getTaskId(){
         return this.taskId;
     }
 
-    public void setTaskId(String taskId){
+    public void setTaskId(Long taskId){
         this.taskId = taskId;
     }
 

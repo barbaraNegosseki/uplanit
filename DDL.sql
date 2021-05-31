@@ -17,15 +17,6 @@ create table up_users (
   primary key (usr_username)
 );
 
-create table up_tasks (
-  task_id varchar(10) not null auto_increment, 
-  task_name varchar(250) not null,
-  task_check varchar(50) not null,
-  task_date_created varchar(50) not null,
-  task_date_due varchar(100) not null,
-  primary key (task_id)
-);
-
 create table up_subscription (
   up_subscription_name varchar(50) not null,
   primary key (up_subscription_name)
@@ -37,6 +28,15 @@ create table up_user_subscription (
   primary key (usr_username, up_subscription_name),
   foreign key usr_username_fk (usr_username) references up_users (usr_username),
   foreign key up_subscription_name_fk (up_subscription_name) references up_subscription (up_subscription_name)
+);
+
+create table up_tasks (
+  task_id bigint unsigned not null auto_increment, 
+  task_name varchar(250) not null,
+  task_check varchar(50) not null,
+  task_date_created varchar(50) not null,
+  task_date_due varchar(100) not null,
+  primary key (task_id)
 );
 
 insert into up_users (usr_name, usr_surname, usr_email, usr_birthday, usr_password, usr_ocupation, usr_username)
