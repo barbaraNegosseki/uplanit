@@ -21,9 +21,9 @@ import br.gov.sp.fatec.uplanitspringbootapp.entity.Tasks;
 
 import br.gov.sp.fatec.uplanitspringbootapp.service.SegurancaService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/task")
-@CrossOrigin
 public class TasksController {
     
     @Autowired
@@ -35,6 +35,7 @@ public class TasksController {
     }
 
     //pesquisando tarefa por ID
+    @CrossOrigin
     @GetMapping(value = "/{taskId}")
     public Tasks getTaskById(@PathVariable("taskId") String taskId){
         return segurancaService.getTaskById(taskId);

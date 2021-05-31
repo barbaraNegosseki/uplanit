@@ -18,7 +18,7 @@ create table up_users (
 );
 
 create table up_tasks (
-  task_id varchar(10) not null, 
+  task_id varchar(10) not null auto_increment, 
   task_name varchar(250) not null,
   task_check varchar(50) not null,
   task_date_created varchar(50) not null,
