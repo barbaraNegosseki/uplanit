@@ -33,7 +33,7 @@ public class TasksController {
 
     //get
     @JsonView(View.Tasks.class)
-    @GetMapping
+    @GetMapping()
     public List<Tasks> getAllTasks(){
         return segurancaService.getAllTasks();
     }
