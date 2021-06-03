@@ -16,21 +16,25 @@ import br.gov.sp.fatec.uplanitspringbootapp.controller.View;
 public class Tasks {
     
     //TODO: Json View
-    @JsonView(View.TasksComplete.class)
+    @JsonView(View.Tasks.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Long taskId;
 
+    @JsonView(View.TasksComplete.class)
     @Column(name = "task_name")
     private String taskName;
 
+    @JsonView(View.TasksComplete.class)
     @Column(name = "task_check")
     private String taskCheck;
 
+    @JsonView(View.TasksComplete.class)
     @Column(name = "task_date_created")
     private String taskDateCreated;
 
+    @JsonView(View.TasksComplete.class)
     @Column(name = "task_date_due")
     private String taskDateDue;
 
