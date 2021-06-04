@@ -164,17 +164,32 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //atualizando as informações das tasks
     @Transactional
-    public Tasks updateTaskInfo(String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
+    public Tasks updateTaskInfo(Long taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
 
-        Tasks tasks = new Tasks();
-        tasks.setTaskName(taskName);
-        tasks.setTaskCheck(taskCheck);
-        tasks.setTaskDateCreated(taskDateCreated);
-        tasks.setTaskDateDue(taskDateDue);
-        taskRepo.save(tasks);
+        Tasks tasks = taskRepo.getTaskById(taskId);
+        if (tasks != null){
+            tasks.setTaskName(taskName);
+            tasks.setTaskCheck(taskCheck);
+            tasks.setTaskDateCreated(taskDateCreated);
+            tasks.setTaskDateDue(taskDateDue);
+            taskRepo.save(tasks);
+    
+            return tasks;
+        }
 
-        return tasks;
+        throw new RegistroNaoEncontradoException("Tarefa não encontrada!");        
     }  
+
+    // @PreAuthorize("isAuthenticated()")
+    // public Pedido atualizarValorPedido(double price, Long id){
+    //     Pedido pedido = pedidoRepo.buscarPedidoPorId(id);
+    //     if (pedido != null) {
+    //         pedido.setPrice(price);
+    //         pedidoRepo.save(pedido);
+    //         return pedido;            
+    //     }
+    //     throw new RegistroNaoEncontradoException("Pedido não encontrado!");
+    // }
 
     //deletando pelo id da Task
     @Override

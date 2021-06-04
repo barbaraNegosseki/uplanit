@@ -53,22 +53,29 @@ public class TasksController {
         HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(
                 uriComponentsBuilder.path(
-                    "/tasks/" + tasks.getTaskId()).build().toUri());
+                    "/task/" + tasks.getTaskId()).build().toUri());
 
         return new ResponseEntity<Tasks>(tasks, responseHeaders, HttpStatus.CREATED);
     }
 
     //atualizando uma task
+    @JsonView(View.TasksComplete.class)
     @PutMapping(path = "/{taskId}")
-    public ResponseEntity<Tasks> updateTask(@PathVariable String taskId, 
-        @RequestBody Tasks tasks, UriComponentsBuilder uriComponentsBuilder)
-        throws Exception{
-            tasks = segurancaService.updateTaskInfo(tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
-            HttpHeaders responHeaders = new HttpHeaders();
-            responHeaders.setLocation(uriComponentsBuilder.path(
-                "/tasks/" + tasks.getTaskId()).build().toUri());
-            return new ResponseEntity<Tasks>(tasks, responHeaders, HttpStatus.CREATED);
+    public ResponseEntity<Tasks> updateTask(@PathVariable Long taskId, @RequestBody Tasks tasks, UriComponentsBuilder uriComponentsBuilder) throws Exception{
+        tasks = segurancaService.updateTaskInfo(tasks.getTaskId(), tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
+        HttpHeaders responHeaders = new HttpHeaders();
+        responHeaders.setLocation(uriComponentsBuilder.path("/task/" + tasks.getTaskId()).build().toUri());
+        return new ResponseEntity<Tasks>(tasks, responHeaders, HttpStatus.CREATED);
     }
+
+    // @JsonView(View.PedidoLista.class)
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Pedido> atualizarPedido(@PathVariable Long id, @RequestBody Pedido pedido, UriComponentsBuilder uriComponentsBuilder) throws Exception {
+    //     pedido = segurancaService.atualizarValorPedido(pedido.getPrice(), id);
+    //     HttpHeaders responseHeaders = new HttpHeaders();
+    //     responseHeaders.setLocation(uriComponentsBuilder.path("/pedido/" + pedido.getId()).build().toUri());
+    //     return new ResponseEntity<Pedido>(pedido, responseHeaders, HttpStatus.CREATED);
+    // }
 
     //deletando uma task
     @DeleteMapping(path = "/{taskId}")
