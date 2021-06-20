@@ -80,14 +80,14 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando todos os usuários
     @Override
-    @PreAuthorize("hasRole('SUBSCRIBED')")
+    @PreAuthorize("isAuthenticated()")
     public List<User> getAllUsers(){
         return userRepo.findAll();
     }
 
     //pesquisando pelo username
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public User getUsername(String username){
         Optional<User> userOp = userRepo.findById(username);
         if(userOp.isPresent()){
@@ -95,6 +95,17 @@ public class SegurancaServiceImpl implements SegurancaService {
         }
         throw new RegistroNaoEncontradoException("Usuário não existe!");
     }
+
+       //pesquisando usuário COMPLETO pelo username
+       @Override
+       //@PreAuthorize("isAuthenticated()")
+       public User getUserByUsername(String username){
+           Optional<User> userOp = userRepo.findById(username);
+           if(userOp.isPresent()){
+               return userOp.get();
+           }
+           throw new RegistroNaoEncontradoException("Usuário não existe!");
+       }
 
     //deletando pelo username
     @Override
@@ -134,6 +145,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //inserindo task
     @Transactional
+    @PreAuthorize("isAuthenticated()")
     public Tasks createTask(String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
        
         Tasks tasks = new Tasks();
@@ -148,12 +160,14 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando todas as tasks
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Tasks> getAllTasks(){
         return taskRepo.findAll();
     }
 
     //pesquisando pelo id da task
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Tasks getTaskById(Long taskId){
         Optional<Tasks> taskOp = taskRepo.findById(taskId);
         if(taskOp.isPresent()){
@@ -164,6 +178,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //atualizando as informações das tasks
     @Transactional
+    @PreAuthorize("isAuthenticated()")
     public Tasks updateTaskInfo(Long taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
 
         Tasks tasks = taskRepo.getTaskById(taskId);
@@ -193,6 +208,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //deletando pelo id da Task
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Tasks deleteTask(Long taskId){
         Optional<Tasks> taskOp = taskRepo.findById(taskId);
         if(taskOp.isPresent()){

@@ -19,8 +19,8 @@ import br.gov.sp.fatec.uplanitspringbootapp.controller.View;
 public class User {
 
     //#region variáveis
-    @Id
-    @JsonView(View.UserComplete.class)
+    @JsonView(View.User.class)
+    @Id    
     @Column(name = "usr_username")
     private String username;
 
@@ -28,18 +28,23 @@ public class User {
     @Column(name = "usr_name")
     private String name;
     
+    @JsonView(View.User.class)
     @Column(name = "usr_surname")
     private String surname;
 
+    @JsonView(View.User.class)
     @Column(name = "usr_email")
     private String email;
 
+    @JsonView(View.User.class)
     @Column(name = "usr_birthday")
     private String birthday;
 
+    @JsonView(View.User.class)
     @Column(name = "usr_password")
     private String password;
 
+    @JsonView(View.User.class)
     @Column(name = "usr_ocupation")
     private String ocupation;
 

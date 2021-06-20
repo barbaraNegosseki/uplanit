@@ -21,6 +21,8 @@ public interface SegurancaService extends UserDetailsService {
 
     public User getUserName(String name);
 
+    public User getUserByUsername(String username);
+
     public Subscription getBySubName(String name);
 
     public User deleteUser(String username);

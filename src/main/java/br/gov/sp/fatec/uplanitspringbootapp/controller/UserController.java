@@ -38,10 +38,18 @@ public class UserController {
         return segurancaService.getAllUsers();
     }   
 
-    @JsonView(View.UserComplete.class)
+    // @JsonView(View.UserComplete.class)
+    // @GetMapping(value = "/{usernam}")
+    // public User getUsername(@PathVariable("username") String username){
+    //     return segurancaService.getUsername(username);
+    // }
+    
+    //pesquisando usuário COMPLETO por ID
+    @CrossOrigin
+    @JsonView(View.User.class)
     @GetMapping(value = "/{username}")
-    public User getUsername(@PathVariable("username") String username){
-        return segurancaService.getUsername(username);
+    public User getUserByUsername(@PathVariable("username") String username){
+        return segurancaService.getUserByUsername(username);
     } 
     
     @JsonView(View.User.class)
