@@ -169,12 +169,8 @@ public class SegurancaServiceImpl implements SegurancaService {
     //pesquisando todas as tasks do usuário pelo username
     @Override
     @PreAuthorize("isAuthenticated()")
-    public Tasks getTasksByUserId(String taskUserId){
-        Tasks tasks = taskRepo.getTasksByUserId(taskUserId);
-        if(tasks != null){
-            return tasks;
-        }
-        throw new RegistroNaoEncontradoException("Não existem tarefas!");
+    public List<Tasks> getTasksByUserId(String taskName){
+        return taskRepo.findAll();
     }
 
     //pesquisando pelo id da task

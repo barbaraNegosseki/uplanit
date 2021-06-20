@@ -1,8 +1,6 @@
 package br.gov.sp.fatec.uplanitspringbootapp.repository;
 
-//import java.util.List;
-
-//import java.util.List;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +15,6 @@ public interface TaskRepository extends JpaRepository<Tasks, Long> {
    public Tasks getTaskById (Long taskId);
 
    @Query("select t from Tasks t where t.taskUserId = ?1")
-   public Tasks getTasksByUserId (String taskUserId);
+   public List<Tasks> getTasksByUserId (String taskUserId);
     
 }

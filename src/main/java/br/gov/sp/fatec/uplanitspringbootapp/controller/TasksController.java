@@ -41,8 +41,8 @@ public class TasksController {
     //pegando as tarefa de cada usuário pelo username
     @JsonView(View.TasksComplete.class)
     @GetMapping(value = "/userTasks/{taskUserId}")
-    public Tasks getTasksByUserId(@PathVariable("taskUserId") String taskUserId){
-        return segurancaService.getTasksByUserId(taskUserId);
+    public List<Tasks> getTasksByUserId(@PathVariable("taskUserId") String taskName){
+        return segurancaService.getTasksByUserId(taskName);
     }
 
     //pesquisando tarefa por ID

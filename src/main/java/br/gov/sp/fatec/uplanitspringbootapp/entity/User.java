@@ -52,7 +52,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "up_user_subscription",
         joinColumns = { @JoinColumn(name = "usr_username") },
-        inverseJoinColumns = { @JoinColumn(name = "up_subscription_name") }
+        inverseJoinColumns = { @JoinColumn(name = "up_subscription_name"),}
     )
     
     private Set<Subscription> subscriptions;

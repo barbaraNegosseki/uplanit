@@ -2,10 +2,13 @@ package br.gov.sp.fatec.uplanitspringbootapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+//import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+//import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+//import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -15,12 +18,15 @@ import br.gov.sp.fatec.uplanitspringbootapp.controller.View;
 @Table(name="up_tasks")
 public class Tasks {
     
-    //TODO: Json View
     @JsonView(View.Tasks.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Long taskId;
+
+    // @JsonView(View.Tasks.class)
+    // @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tasks")
+    // private Set<User> users;
 
     @JsonView(View.TasksComplete.class)
     @Column(name = "task_user_id")

@@ -45,6 +45,7 @@ public class UserController {
     // }
     
     //pesquisando usuário COMPLETO por ID
+    
     @CrossOrigin
     @JsonView(View.User.class)
     @GetMapping(value = "/{username}")
