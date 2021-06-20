@@ -31,7 +31,8 @@ create table up_user_subscription (
 );
 
 create table up_tasks (
-  task_id bigint unsigned not null auto_increment, 
+  task_id bigint unsigned not null auto_increment,
+  task_user_id varchar(100) not null, 
   task_name varchar(250) not null,
   task_check varchar(50) not null,
   task_date_created varchar(50) not null,
