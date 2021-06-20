@@ -23,6 +23,10 @@ public class Tasks {
     private Long taskId;
 
     @JsonView(View.TasksComplete.class)
+    @Column(name = "task_user_id")
+    private String taskUserId;
+
+    @JsonView(View.TasksComplete.class)
     @Column(name = "task_name")
     private String taskName;
 
@@ -46,6 +50,14 @@ public class Tasks {
 
     public void setTaskId(Long taskId){
         this.taskId = taskId;
+    }
+
+    public String getTaskUserId(){
+        return this.taskUserId;
+    }
+
+    public void setTaskUserId(String taskUserId){
+        this.taskUserId = taskUserId;
     }
 
     public String getTaskName(){

@@ -146,9 +146,10 @@ public class SegurancaServiceImpl implements SegurancaService {
     //inserindo task
     @Transactional
     @PreAuthorize("isAuthenticated()")
-    public Tasks createTask(String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
+    public Tasks createTask(String taskUserId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
        
         Tasks tasks = new Tasks();
+        tasks.setTaskUserId(taskUserId);
         tasks.setTaskName(taskName);
         tasks.setTaskCheck(taskCheck);
         tasks.setTaskDateCreated(taskDateCreated);
@@ -163,6 +164,17 @@ public class SegurancaServiceImpl implements SegurancaService {
     @PreAuthorize("isAuthenticated()")
     public List<Tasks> getAllTasks(){
         return taskRepo.findAll();
+    }
+
+    //pesquisando todas as tasks do usuário pelo username
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public Tasks getTasksByUserId(String taskUserId){
+        Tasks tasks = taskRepo.getTasksByUserId(taskUserId);
+        if(tasks != null){
+            return tasks;
+        }
+        throw new RegistroNaoEncontradoException("Não existem tarefas!");
     }
 
     //pesquisando pelo id da task

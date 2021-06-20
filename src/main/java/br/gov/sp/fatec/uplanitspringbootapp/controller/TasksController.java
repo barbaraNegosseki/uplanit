@@ -38,6 +38,13 @@ public class TasksController {
         return segurancaService.getAllTasks();
     }
 
+    //pegando as tarefa de cada usuário pelo username
+    @JsonView(View.TasksComplete.class)
+    @GetMapping(value = "/userTasks/{taskUserId}")
+    public Tasks getTasksByUserId(@PathVariable("taskUserId") String taskUserId){
+        return segurancaService.getTasksByUserId(taskUserId);
+    }
+
     //pesquisando tarefa por ID
     @CrossOrigin
     @GetMapping(value = "/{taskId}")
@@ -49,7 +56,7 @@ public class TasksController {
     @PostMapping
     public ResponseEntity<Tasks> signUpNewUser(@RequestBody Tasks tasks,
             UriComponentsBuilder uriComponentsBuilder){   
-        tasks = segurancaService.createTask(tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
+        tasks = segurancaService.createTask(tasks.getTaskUserId(), tasks.getTaskName(), tasks.getTaskCheck(), tasks.getTaskDateCreated(), tasks.getTaskDateDue());
         HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(
                 uriComponentsBuilder.path(
