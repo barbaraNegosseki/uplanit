@@ -43,6 +43,9 @@ create table up_tasks (
 insert into up_users (usr_name, usr_surname, usr_email, usr_birthday, usr_password, usr_ocupation, usr_username)
   values ('Admin','01','admin@gmail.com','11-11-1999','$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C','Administrador','admin');
 
+insert into up_users (usr_name, usr_surname, usr_email, usr_birthday, usr_password, usr_ocupation, usr_username)
+  values ('Barbara','Negosseki','barbara@gmail.com','07-10-1997','$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C','Estudante','bnegosseki');
+
 insert into up_subscription (up_subscription_name)
   values ('SUBSCRIBED');
 
