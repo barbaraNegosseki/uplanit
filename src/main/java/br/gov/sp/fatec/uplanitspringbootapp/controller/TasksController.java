@@ -75,14 +75,15 @@ public class TasksController {
         return new ResponseEntity<Tasks>(tasks, responHeaders, HttpStatus.CREATED);
     }
 
-    // @JsonView(View.PedidoLista.class)
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Pedido> atualizarPedido(@PathVariable Long id, @RequestBody Pedido pedido, UriComponentsBuilder uriComponentsBuilder) throws Exception {
-    //     pedido = segurancaService.atualizarValorPedido(pedido.getPrice(), id);
-    //     HttpHeaders responseHeaders = new HttpHeaders();
-    //     responseHeaders.setLocation(uriComponentsBuilder.path("/pedido/" + pedido.getId()).build().toUri());
-    //     return new ResponseEntity<Pedido>(pedido, responseHeaders, HttpStatus.CREATED);
-    // }
+    //atualizando status check de uma task
+    @JsonView(View.TasksComplete.class)
+    @PutMapping(path = "/status/{taskId}")
+    public ResponseEntity<Tasks> updateTaskStatus(@PathVariable Long taskId, @RequestBody Tasks tasks, UriComponentsBuilder uriComponentsBuilder) throws Exception{
+        tasks = segurancaService.updateTaskStatus(tasks.getTaskId(), tasks.getTaskCheck());
+        HttpHeaders responHeaders = new HttpHeaders();
+        responHeaders.setLocation(uriComponentsBuilder.path("/task/" + tasks.getTaskId()).build().toUri());
+        return new ResponseEntity<Tasks>(tasks, responHeaders, HttpStatus.CREATED);
+    }
 
     //deletando uma task
     @DeleteMapping(path = "/{taskId}")

@@ -37,6 +37,8 @@ public interface SegurancaService extends UserDetailsService {
 
     public Tasks createTask(String taskUserId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue);
 
+    public Tasks updateTaskStatus(Long taskId, String taskCheck);
+
     public Tasks updateTaskInfo(Long taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue);
 
     public Tasks deleteTask(Long taskId);

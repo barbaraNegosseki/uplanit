@@ -120,7 +120,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando pelo nome
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public User getUserName(String name){
          User user = userRepo.findByName(name);
         if(user != null){
@@ -131,7 +131,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando pelo nome da inscrição
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public Subscription getBySubName(String name){
         Subscription subscription = subRepo.findBySubscription(name);
         
@@ -145,7 +145,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //inserindo task
     @Transactional
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public Tasks createTask(String taskUserId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
        
         Tasks tasks = new Tasks();
@@ -161,21 +161,21 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //pesquisando todas as tasks
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public List<Tasks> getAllTasks(){
         return taskRepo.findAll();
     }
 
     //pesquisando todas as tasks do usuário pelo username
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public List<Tasks> getTasksByUserId(String taskName){
         return taskRepo.findAll();
     }
 
     //pesquisando pelo id da task
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public Tasks getTaskById(Long taskId){
         Optional<Tasks> taskOp = taskRepo.findById(taskId);
         if(taskOp.isPresent()){
@@ -186,7 +186,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //atualizando as informações das tasks
     @Transactional
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public Tasks updateTaskInfo(Long taskId, String taskName, String taskCheck, String taskDateCreated, String taskDateDue) {
 
         Tasks tasks = taskRepo.getTaskById(taskId);
@@ -199,9 +199,22 @@ public class SegurancaServiceImpl implements SegurancaService {
     
             return tasks;
         }
-
         throw new RegistroNaoEncontradoException("Tarefa não encontrada!");        
     }  
+
+    @Transactional
+    //@PreAuthorize("isAuthenticated()")
+    public Tasks updateTaskStatus(Long taskId, String taskCheck) {
+
+        Tasks tasks = taskRepo.getTaskById(taskId);
+        if (tasks != null){
+            tasks.setTaskCheck(taskCheck);
+            taskRepo.save(tasks);
+    
+            return tasks;
+        }
+        throw new RegistroNaoEncontradoException("Tarefa não encontrada!");        
+    } 
 
     // @PreAuthorize("isAuthenticated()")
     // public Pedido atualizarValorPedido(double price, Long id){
@@ -216,7 +229,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     //deletando pelo id da Task
     @Override
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     public Tasks deleteTask(Long taskId){
         Optional<Tasks> taskOp = taskRepo.findById(taskId);
         if(taskOp.isPresent()){
