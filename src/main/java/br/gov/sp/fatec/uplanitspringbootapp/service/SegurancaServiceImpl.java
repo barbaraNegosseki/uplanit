@@ -241,15 +241,16 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByName(username);
+        User user = userRepo.getUserByUsername(username);
 
         if(user == null){
             throw new UsernameNotFoundException("Usuário " + username + " não encontrado!");
         }
 
-        return org.springframework.security.core.userdetails.User.builder().username(username)
-                    .password(user.getPassword()).authorities(user.getSubscriptions().stream()
-                    .map(Subscription::getSubscriptions).collect(Collectors.toList()).toArray(new String[user
-                    .getSubscriptions().size()])).build();
+        return org.springframework.security.core.userdetails.User.builder().username(username).password(user.getPassword())
+                    .authorities(user.getSubscriptions().stream()
+                    .map(Subscription::getSubscriptions).collect(Collectors.toList())
+                    .toArray(new String[user.getSubscriptions().size()]))
+                    .build();
     }
 }
